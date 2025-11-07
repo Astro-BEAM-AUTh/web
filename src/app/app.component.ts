@@ -28,6 +28,7 @@ export class AppComponent {
     { name: 'articles', target: 'articles' },
     { name: 'news', target: 'news' },
     { name: 'openPositions', target: 'open-positions' },
+    { name: 'applications', target: 'https://astro-beam-auth.github.io/apps/' },
     { name: 'contact', target: 'contact' },
   ]
 
@@ -53,6 +54,13 @@ export class AppComponent {
     for (let node of toolbarLinks) {
       node.classList.remove('toolbar-link-selected')
     }
+    
+    // Check if target is an external URL
+    if (target.startsWith('http')) {
+      window.open(target, '_blank');
+      return;
+    }
+    
     document.getElementById('toolbar-link-' + target)!.classList.add('toolbar-link-selected')
     this.router.navigateByUrl('/' + target)
 
