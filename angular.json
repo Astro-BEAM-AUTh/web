@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "astrobeam": {
+    "web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/astrobeam",
+            "outputPath": "dist/web",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "astrobeam:build:production"
+              "buildTarget": "web:build:production"
             },
             "development": {
-              "buildTarget": "astrobeam:build:development"
+              "buildTarget": "web:build:development"
             }
           },
           "defaultConfiguration": "development"
