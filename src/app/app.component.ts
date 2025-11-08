@@ -30,6 +30,7 @@ export class AppComponent {
     { name: 'openPositions', target: 'open-positions' },
     { name: 'applications', target: 'https://astro-beam-auth.github.io/apps/' },
     { name: 'contact', target: 'contact' },
+    { name: 'portal', target: 'https://astro-beam-auth.github.io/portal/'},
   ]
 
   constructor(
