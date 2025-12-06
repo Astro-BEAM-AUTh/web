@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+# [1.1.0](https://github.com/Astro-BEAM-AUTh/web/compare/v1.0.0...v1.1.0) (2025-11-08)
+
+
+### Features
+
+* add a redirect button to astro's observation portal ([f105e07](https://github.com/Astro-BEAM-AUTh/web/commit/f105e071cb8c2e4c638e1cc12cc2a73ef7201dd4))
+
 # 1.0.0 (2025-11-07)
 
 
