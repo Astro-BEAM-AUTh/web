@@ -1,14 +1,10 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from "@ngx-translate/core";
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'i18n/', '.json')
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,11 +12,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(
       TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient]
-        }
+        loader: provideTranslateHttpLoader({
+          prefix: 'i18n/',
+          suffix: '.json',
+        }),
       })
     ),
     provideHttpClient(withInterceptorsFromDi()), provideAnimationsAsync()
