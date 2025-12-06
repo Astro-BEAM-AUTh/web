@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 <!-- insertion marker -->
 
+## [1.1.1](https://github.com/Astro-BEAM-AUTh/web/compare/v1.1.0...v1.1.1) (2025-12-06)
+
 # [1.1.0](https://github.com/Astro-BEAM-AUTh/web/compare/v1.0.0...v1.1.0) (2025-11-08)
 
 
