@@ -1,4 +1,142 @@
 <div class="carousel-container">
     <app-carousel [slides]="carouselSlides"></app-carousel>
 </div>
-<div style="height: 100dvh; width: 100%;"></div>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <p class="about-text">
+            Η BEAM σε συνεργασία με τον τομέα Αστροφυσικής, Αστρονομίας & Μηχανικής του Τμήματος Φυσικής ΑΠΘ, αναλαμβάνει την υλοποίηση ενός νέου project που σχετίζεται με την ανάπτυξη και τον σχεδιασμό ενός ραδιοτηλεσκόπιου!!
+        </p>
+        <p class="about-text">
+            Αξιοποιώντας εθνικές και διεθνείς συνεργασίες των καθηγητών μας έχουμε την υποστήριξη και την καθοδήγηση αστρονόμων και μηχανικών με εκτενή εμπειρία στην κατασκευή ραδιοτηλεσκοπίων.
+        </p>
+        <p class="about-text">
+            Κύριος σκοπός του project είναι η ενίσχυση των εκπαιδευτικών και ερευνητικών εγκαταστάσεων του ΑΠΘ αλλά και η άνθιση του τομέα της αστρονομίας και πιο ειδικά της ραδιοαστρονομίας στην Ελλάδα.
+        </p>
+        <button routerLink="/about-us" class="learn-more-btn">
+            Περισσότερα για εμάς
+        </button>
+    </div>
+</section>
+
+<!-- Highlighted Sponsors Section -->
+<section class="sponsors-section">
+    <div class="container">
+        <h2 class="section-title">Χορηγοί</h2>
+        <div class="sponsors-grid">
+            @for (sponsor of sponsors; track sponsor.id) {
+                <mat-card class="sponsor-card" (click)="sponsor.redirectUrl ? window.open(sponsor.redirectUrl, '_blank') : null" style="cursor: pointer;">
+                    <img mat-card-image [src]="sponsor.imageUrl" [alt]="sponsor.title">
+                    <mat-card-content>
+                        <h3>{{ sponsor.title }}</h3>
+                        <p>{{ sponsor.description }}</p>
+                    </mat-card-content>
+                </mat-card>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Contact & Location Section -->
+<section class="contact-section">
+    <div class="container">
+        <h2 class="section-title">Επικοινωνία & Τοποθεσία</h2>
+        
+        <div class="contact-layout">
+            <!-- Left Side: Contact Info and Map -->
+            <div class="contact-left">
+                <div class="contact-info-card">
+                    <h3>Στοιχεία Επικοινωνίας</h3>
+                    <div class="info-item">
+                        <mat-icon>location_on</mat-icon>
+                        <div>
+                            <strong>Διεύθυνση</strong>
+                            <p>Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης<br>Εγνατία 147, Θεσσαλονίκη, Ελλάδα</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <mat-icon>email</mat-icon>
+                        <div>
+                            <strong>Email</strong>
+                            <p><a href="mailto:info.astrobeam@gmail.com">info.astrobeam&#64;gmail.com</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?origin=mfe&pb=!1m4!2m1!1sAristotle+University+of+Thessaloniki!5e0!6i15" 
+                        width="100%"
+                        height="300"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="contact-right">
+                <div class="contact-form-card">
+                    <h3>Στείλτε μας μήνυμα</h3>
+                    <p class="form-description">
+                        Συμπληρώστε την παρακάτω φόρμα και θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.
+                    </p>
+
+                    <form (ngSubmit)="onSubmitContactForm()" #contactForm="ngForm" class="contact-form">
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Όνομα</mat-label>
+                            <input matInput name="name" [(ngModel)]="formData.name" required>
+                            <mat-icon matPrefix>person</mat-icon>
+                            <mat-error>Το όνομα είναι υποχρεωτικό</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" name="email" [(ngModel)]="formData.email" required email>
+                            <mat-icon matPrefix>email</mat-icon>
+                            <mat-error>Παρακαλώ εισάγετε έγκυρο email</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Θέμα</mat-label>
+                            <input matInput name="subject" [(ngModel)]="formData.subject" required>
+                            <mat-icon matPrefix>subject</mat-icon>
+                            <mat-error>Το θέμα είναι υποχρεωτικό</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="full-width">
+                            <mat-label>Μήνυμα</mat-label>
+                            <textarea matInput name="message" [(ngModel)]="formData.message" required rows="6"></textarea>
+                            <mat-icon matPrefix>message</mat-icon>
+                            <mat-error>Το μήνυμα είναι υποχρεωτικό</mat-error>
+                        </mat-form-field>
+
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!contactForm.valid || isSubmitting" class="submit-btn">
+                            @if (isSubmitting) {
+                                <span>Αποστολή...</span>
+                            } @else {
+                                <span>Αποστολή Μηνύματος</span>
+                            }
+                        </button>
+
+                        @if (submitSuccess) {
+                            <div class="success-message">
+                                <mat-icon>check_circle</mat-icon>
+                                Το μήνυμά σας στάλθηκε επιτυχώς!
+                            </div>
+                        }
+
+                        @if (submitError) {
+                            <div class="error-message">
+                                <mat-icon>error</mat-icon>
+                                Παρουσιάστηκε σφάλμα. Παρακαλώ δοκιμάστε ξανά.
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
