@@ -11,14 +11,34 @@
          [class.dragging]="isDragging"
          [style.transform]="getCarouselTransform()">
         @for (slide of slides; track slide.id) {
-            <div class="carousel-item" [style.background-color]="slide.backgroundColor">
-                <img [src]="slide.imageUrl" [alt]="slide.title" class="carousel-image" draggable="false">
-                <div class="carousel-overlay"></div>
-                <div class="carousel-content">
-                    <h1 class="carousel-title">{{ slide.title }}</h1>
-                    <p class="carousel-subtitle">{{ slide.subtitle }}</p>
-                </div>
-            </div>
+            <app-carousel-slide 
+                [imageUrl]="slide.imageUrl"
+                [backgroundColor]="slide.backgroundColor"
+                [title]="slide.title"
+                [subtitle]="slide.subtitle"
+                [overlayOpacity]="slide.overlayOpacity || 0.5">
+                
+                <!-- Optional buttons for this slide -->
+                @if (slide.buttons && slide.buttons.length > 0) {
+                    <div class="slide-button-group">
+                        @for (button of slide.buttons; track button.text) {
+                            @if (button.routerLink) {
+                                <a mat-raised-button 
+                                   [routerLink]="button.routerLink"
+                                   class="slide-button">
+                                    {{ button.text }}
+                                </a>
+                            } @else {
+                                <button mat-raised-button 
+                                        (click)="button.action?.()"
+                                        class="slide-button">
+                                    {{ button.text }}
+                                </button>
+                            }
+                        }
+                    </div>
+                }
+            </app-carousel-slide>
         }
     </div>
 

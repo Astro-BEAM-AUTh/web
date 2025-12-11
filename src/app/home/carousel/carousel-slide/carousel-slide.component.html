@@ -1,0 +1,25 @@
+<div class="carousel-slide" [style.background-color]="backgroundColor">
+    <!-- Background image -->
+    <img [src]="imageUrl" [alt]="title || 'Carousel slide'" class="slide-image" draggable="false">
+    
+    <!-- Dark overlay for text readability -->
+    <div class="slide-overlay" [style.opacity]="overlayOpacity"></div>
+    
+    <!-- Content area - this is where we project custom content -->
+    <div class="slide-content">
+        <!-- Default content if nothing is projected -->
+        @if (title || subtitle) {
+            <div class="default-content">
+                @if (title) {
+                    <h1 class="slide-title">{{ title }}</h1>
+                }
+                @if (subtitle) {
+                    <p class="slide-subtitle">{{ subtitle }}</p>
+                }
+            </div>
+        }
+        
+        <!-- This is where custom content will be injected! -->
+        <ng-content></ng-content>
+    </div>
+</div>

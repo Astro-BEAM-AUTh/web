@@ -1,48 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// Interface to define the structure of a slide
-interface CarouselSlide {
-  id: number;
-  title: string;
-  subtitle: string;
-  imageUrl: string;
-  backgroundColor: string;
-}
+import { CarouselSlideComponent } from './carousel-slide/carousel-slide.component';
+import { CarouselSlide } from './carousel.models';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
-  imports: [CommonModule],
+  imports: [CommonModule, CarouselSlideComponent, MatButtonModule, RouterModule],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss'
 })
 
-export class CarouselComponent {
-
-  // Mock data - will be replaced with API call later
-  slides: CarouselSlide[] = [
-    {
-      id: 1,
-      title: 'Welcome to AstroBeam',
-      subtitle: 'Exploring the Universe Together',
-      imageUrl: 'img/carousel-1.jpg',
-      backgroundColor: '#1a237e'
-    },
-    {
-      id: 2,
-      title: 'Research & Innovation',
-      subtitle: 'Pushing the Boundaries of Astrophysics',
-      imageUrl: 'img/carousel-2.png',
-      backgroundColor: '#b71c1c'
-    },
-    {
-      id: 3,
-      title: 'Join Our Team',
-      subtitle: 'Be Part of Something Extraordinary',
-      imageUrl: 'img/carousel-3.jpg',
-      backgroundColor: '#1b5e20'
-    }
-  ];
+export class CarouselComponent implements OnInit, OnDestroy {
+  // Accept slide data as input
+  @Input() slides: CarouselSlide[] = [];
+  @Input() autoPlayInterval: number = 5000; // Customizable interval
+  @Input() enableAutoPlay: boolean = true;
 
   currentSlide = 0;
   intervalId: any;
@@ -56,7 +30,9 @@ export class CarouselComponent {
 
   ngOnInit(): void {
     // Start auto-play when component loads
-    this.startCarousel();
+    if (this.enableAutoPlay && this.slides.length > 0) {
+      this.startCarousel();
+    }
   }
 
   ngOnDestroy(): void {
@@ -67,7 +43,7 @@ export class CarouselComponent {
   startCarousel() {
     this.intervalId = setInterval(() => {
       this.nextSlide();
-    }, 5000); // Change slide every 5 seconds
+    }, this.autoPlayInterval);
   }
 
   nextSlide() {
